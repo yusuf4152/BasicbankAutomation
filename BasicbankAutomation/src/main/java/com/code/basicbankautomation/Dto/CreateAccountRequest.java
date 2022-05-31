@@ -12,10 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreateAccountRequest{
+public class CreateAccountRequest extends BaseAccountRequest{
     private String id;
-    private String customerId;
-    private Double balance;
-    private City city;
-    private Currency currency;
+
 }

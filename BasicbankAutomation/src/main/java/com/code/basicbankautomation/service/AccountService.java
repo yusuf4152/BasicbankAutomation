@@ -17,17 +17,16 @@ import java.util.Optional;
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
-    private final CustomerRepository customerRepository;
+    private final CustomerService customerService;
     private final AccountDtoConverter accountDtoConverter;
-    public AccountService(AccountRepository accountRepository, CustomerService customerService, CustomerRepository customerRepository, AccountDtoConverter accountDtoConverter) {
+    public AccountService(AccountRepository accountRepository, CustomerService customerService, CustomerRepository customerRepository, CustomerService customerService1, AccountDtoConverter accountDtoConverter) {
         this.accountRepository = accountRepository;
-        this.customerRepository = customerRepository;
-
+        this.customerService = customerService1;
         this.accountDtoConverter = accountDtoConverter;
     }
 
     public AccountDto createAccount(CreateAccountRequest createAccountRequest){
-        Customer customer=customerRepository.findById(createAccountRequest.getCustomerId()).get();
+         Customer customer=customerService.getCustomerById(createAccountRequest.getCustomerId());
         if (Objects.equals(customer.getId(), "") || customer.getId()==null){
             return AccountDto.builder().build();
         }
@@ -41,7 +40,7 @@ public class AccountService {
     }
 
     public AccountDto updateAccount(String id, UpdateAccountRequest updateAccountRequest){
-        Customer customer= customerRepository.findById(id).get();
+        Customer customer= customerService.getCustomerById(updateAccountRequest.getCustomerId());
         if (customer.getId().equals("") || customer.getId()==null){
             return AccountDto.builder().build();
         }

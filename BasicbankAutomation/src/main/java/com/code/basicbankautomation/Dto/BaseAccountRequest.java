@@ -8,5 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-public class UpdateAccountRequest  extends BaseAccountRequest{
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+
+public class BaseAccountRequest {
+    private String customerId;
+    private Double balance;
+    private City city;
+    private Currency currency;
 }
